@@ -1,0 +1,13 @@
+package com.main.student.inventory.studentInventory;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class StudentInventoryApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
