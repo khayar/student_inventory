@@ -7,15 +7,22 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-public class Student{
+@Table(name = "student")
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
     private Long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "created_by")
     private String createdBy;
+    @Column(name = "created_on")
     private LocalDateTime createdOn;
+    @Column(name = "updated_by")
     private String updatedBy;
+    @Column(name = "updated_on")
     private LocalDateTime updatedOn;
 
     public Student() {
@@ -79,16 +86,15 @@ public class Student{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return Objects.equals(id, student.id) && Objects.equals(name, student.name) && Objects.equals(createdBy, student.createdBy) && Objects.equals(createdOn, student.createdOn) && Objects.equals(updatedBy, student.updatedBy) && Objects.equals(updatedOn, student.updatedOn);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, createdBy, createdOn, updatedBy, updatedOn);
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", createdBy='" + createdBy + '\'' +
+                ", createdOn=" + createdOn +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", updatedOn=" + updatedOn +
+                '}';
     }
 
     @PrePersist

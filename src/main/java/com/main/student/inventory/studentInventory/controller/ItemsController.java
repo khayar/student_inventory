@@ -2,6 +2,7 @@ package com.main.student.inventory.studentInventory.controller;
 
 import com.main.student.inventory.studentInventory.model.Items;
 import com.main.student.inventory.studentInventory.model.Receipt;
+import com.main.student.inventory.studentInventory.model.Student;
 import com.main.student.inventory.studentInventory.service.ItemsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +47,16 @@ public class ItemsController {
             items.setCreatedOn(existingItems.get().getCreatedOn());
             Items updatedItems = itemsService.updateItems(id, items);
             return ResponseEntity.ok().body(updatedItems);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteItem(@PathVariable("id") Long id) {
+        Optional<Items> existingItem = itemsService.getItemsById(id);
+        if (existingItem.isPresent()) {
+            itemsService.deleteItem(id);
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }

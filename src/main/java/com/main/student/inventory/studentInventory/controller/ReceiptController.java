@@ -1,7 +1,9 @@
 package com.main.student.inventory.studentInventory.controller;
 
 import com.main.student.inventory.studentInventory.model.Receipt;
+import com.main.student.inventory.studentInventory.model.Student;
 import com.main.student.inventory.studentInventory.service.ReceiptService;
+import com.main.student.inventory.studentInventory.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +16,11 @@ import java.util.Optional;
 public class ReceiptController {
 
     private final ReceiptService receiptService;
+    private final StudentService studentService;
 
-    public ReceiptController(ReceiptService receiptService) {
+    public ReceiptController(ReceiptService receiptService, StudentService studentService) {
         this.receiptService = receiptService;
+        this.studentService = studentService;
     }
 
     @GetMapping

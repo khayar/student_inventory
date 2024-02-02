@@ -26,7 +26,7 @@ public class ReceiptInfoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReceiptInfo> getReceiptInfoById(@PathVariable("id") Long id) {
+    public ResponseEntity<ReceiptInfo> getReceiptInfoById(@PathVariable("id") Integer id) {
         Optional<ReceiptInfo> receiptInfo = receiptInfoService.getReceiptById(id);
         return receiptInfo.map(value -> ResponseEntity.ok().body(value))
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -38,7 +38,7 @@ public class ReceiptInfoController {
     }
     @PutMapping("/{id}")
     public ResponseEntity<ReceiptInfo> updateReceipt(
-            @PathVariable("id") Long id,
+            @PathVariable("id") Integer id,
             @RequestBody ReceiptInfo receiptInfo
     ) {
         Optional<ReceiptInfo> existingItems = receiptInfoService.getReceiptById(id);

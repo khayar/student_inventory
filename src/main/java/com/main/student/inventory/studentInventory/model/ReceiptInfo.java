@@ -9,8 +9,6 @@ import java.util.Objects;
 public class ReceiptInfo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private Integer receiptNo;
     private Integer actualReceiptNo;
     private String createdBy;
@@ -21,22 +19,13 @@ public class ReceiptInfo {
     public ReceiptInfo() {
     }
 
-    public ReceiptInfo(Long id, Integer receiptNo, Integer actualReceiptNo, String createdBy, LocalDateTime createdOn, String updatedBy, LocalDateTime updatedOn) {
-        this.id = id;
+    public ReceiptInfo(Integer receiptNo, Integer actualReceiptNo, String createdBy, LocalDateTime createdOn, String updatedBy, LocalDateTime updatedOn) {
         this.receiptNo = receiptNo;
         this.actualReceiptNo = actualReceiptNo;
         this.createdBy = createdBy;
         this.createdOn = createdOn;
         this.updatedBy = updatedBy;
         this.updatedOn = updatedOn;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Integer getReceiptNo() {
@@ -92,13 +81,14 @@ public class ReceiptInfo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ReceiptInfo that = (ReceiptInfo) o;
-        return Objects.equals(id, that.id) && Objects.equals(receiptNo, that.receiptNo) && Objects.equals(actualReceiptNo, that.actualReceiptNo) && Objects.equals(createdBy, that.createdBy) && Objects.equals(createdOn, that.createdOn) && Objects.equals(updatedBy, that.updatedBy) && Objects.equals(updatedOn, that.updatedOn);
+        return Objects.equals(receiptNo, that.receiptNo) && Objects.equals(actualReceiptNo, that.actualReceiptNo) && Objects.equals(createdBy, that.createdBy) && Objects.equals(createdOn, that.createdOn) && Objects.equals(updatedBy, that.updatedBy) && Objects.equals(updatedOn, that.updatedOn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, receiptNo, actualReceiptNo, createdBy, createdOn, updatedBy, updatedOn);
+        return Objects.hash(receiptNo, actualReceiptNo, createdBy, createdOn, updatedBy, updatedOn);
     }
+
     @PrePersist
     private void beforeInsert(){
         this.setCreatedBy("admin");

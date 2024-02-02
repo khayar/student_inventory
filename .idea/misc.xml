@@ -6,6 +6,7 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/../loginwithJWT/pom.xml" />
+        <option value="$PROJECT_DIR$/../../Frontend Projects/Secure-User-Platform-with-SpringBoot3-Vue-JWT/backend/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />

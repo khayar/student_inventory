@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="loginwithJWT" />
         <module name="studentInventory" />
+        <module name="backend" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="backend" options="-parameters" />
       <module name="loginwithJWT" options="-parameters" />
       <module name="studentInventory" options="-parameters" />
     </option>

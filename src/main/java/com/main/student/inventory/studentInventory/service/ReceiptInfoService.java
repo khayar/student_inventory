@@ -1,8 +1,10 @@
 package com.main.student.inventory.studentInventory.service;
 
+import com.main.student.inventory.studentInventory.exception.ActualReceiptUniqueException;
 import com.main.student.inventory.studentInventory.model.ReceiptInfo;
 import com.main.student.inventory.studentInventory.model.Student;
 import com.main.student.inventory.studentInventory.repository.ReceiptInfoRepository;
+import jakarta.persistence.UniqueConstraint;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,14 +20,18 @@ public class ReceiptInfoService {
     public List<ReceiptInfo> getAllReceipt() {
         return receiptInfoRepository.findAll();
     }
-    public Optional<ReceiptInfo> getReceiptById(Long id) {
+    public Optional<ReceiptInfo> getReceiptById(Integer id) {
         return receiptInfoRepository.findById(id);
     }
     public ReceiptInfo createReceiptInfo(ReceiptInfo receiptInfo) {
-        return receiptInfoRepository.save(receiptInfo);
+        try {
+           return receiptInfoRepository.save(receiptInfo);
+        } catch (Throwable ex){
+            throw new ActualReceiptUniqueException(receiptInfo.getActualReceiptNo());
+        }
     }
-    public ReceiptInfo updateReceipt(Long id, ReceiptInfo receiptInfo) {
-        receiptInfo.setId(id);
+    public ReceiptInfo updateReceipt(Integer receiptNo, ReceiptInfo receiptInfo) {
+        receiptInfo.setReceiptNo(receiptNo);
         return receiptInfoRepository.save(receiptInfo);
     }
 

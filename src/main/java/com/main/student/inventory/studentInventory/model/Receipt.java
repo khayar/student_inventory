@@ -1,42 +1,77 @@
 package com.main.student.inventory.studentInventory.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.main.student.inventory.studentInventory.util.ReceiptInfoDeserlizer;
+import com.main.student.inventory.studentInventory.util.StudentDeserlizer;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+@Table(name = "receipt")
 public class Receipt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
     private Long id;
-
+    @Column(name = "bank_clearing_date")
     private LocalDate bankClearingDate;
-    private Integer studentId;
-    private Integer receiptNo;
-    private Integer cashBank;
+    @JsonDeserialize(using = StudentDeserlizer.class)
+    @ManyToOne
+    @JoinColumn(name = "studentId" )
+    private Student studentId;
+    @JsonDeserialize(using = ReceiptInfoDeserlizer.class)
+    @ManyToOne
+    @JoinColumn(name = "receiptNo")
+    private ReceiptInfo receiptNo;
+    @Column(name = "cash_bank")
+    private String cashBank;
+    @Column(name = "registration_fee")
     private Integer registrationFee;
+    @Column(name = "security_fee")
     private Integer securityFee;
+    @Column(name = "tution_fee")
     private Integer tutionFee;
+    @Column(name = "stationary_fee")
     private Integer stationaryFee;
+    @Column(name = "citrex_sale")
     private Integer citrexSale;
+    @Column(name = "inventory")
+    private Integer inventory;
+    @Column(name = "total_record")
     private Integer totalRecord;
-    private Integer paymentStatus;
+    @Column(name = "payment_status")
+    private String paymentStatus;
+    @Column(name = "system_remarks")
     private String systemRemarks;
-    private Integer orderStatus;
+    @Column(name = "order_status")
+    private String orderStatus;
+    @Column(name = "other")
     private String other;
+    @Column(name = "unknown")
     private String unknown;
+    @Column(name = "created_by")
     private String createdBy;
+    @Column(name = "created_on")
     private LocalDateTime createdOn;
+    @Column(name = "updated_by")
     private String updatedBy;
+    @Column(name = "updated_on")
     private LocalDateTime updatedOn;
 
     public Receipt() {
     }
 
-    public Receipt(Long id, LocalDate bankClearingDate, Integer studentId, Integer receiptNo, Integer cashBank, Integer registrationFee, Integer securityFee, Integer tutionFee, Integer stationaryFee, Integer citrexSale, Integer totalRecord, Integer paymentStatus, String systemRemarks, Integer orderStatus, String other, String unknown, String createdBy, LocalDateTime createdOn, String updatedBy, LocalDateTime updatedOn) {
+    public Receipt(Long id, LocalDate bankClearingDate, Student studentId, ReceiptInfo receiptNo, String cashBank, Integer registrationFee, Integer securityFee, Integer tutionFee, Integer stationaryFee, Integer citrexSale, Integer inventory, Integer totalRecord, String paymentStatus, String systemRemarks, String orderStatus, String other, String unknown, String createdBy, LocalDateTime createdOn, String updatedBy, LocalDateTime updatedOn) {
         this.id = id;
         this.bankClearingDate = bankClearingDate;
         this.studentId = studentId;
@@ -47,6 +82,7 @@ public class Receipt {
         this.tutionFee = tutionFee;
         this.stationaryFee = stationaryFee;
         this.citrexSale = citrexSale;
+        this.inventory = inventory;
         this.totalRecord = totalRecord;
         this.paymentStatus = paymentStatus;
         this.systemRemarks = systemRemarks;
@@ -75,27 +111,27 @@ public class Receipt {
         this.bankClearingDate = bankClearingDate;
     }
 
-    public Integer getStudentId() {
+    public Student getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(Integer studentId) {
+    public void setStudentId(Student studentId) {
         this.studentId = studentId;
     }
 
-    public Integer getReceiptNo() {
+    public ReceiptInfo getReceiptNo() {
         return receiptNo;
     }
 
-    public void setReceiptNo(Integer receiptNo) {
+    public void setReceiptNo(ReceiptInfo receiptNo) {
         this.receiptNo = receiptNo;
     }
 
-    public Integer getCashBank() {
+    public String getCashBank() {
         return cashBank;
     }
 
-    public void setCashBank(Integer cashBank) {
+    public void setCashBank(String cashBank) {
         this.cashBank = cashBank;
     }
 
@@ -147,11 +183,11 @@ public class Receipt {
         this.totalRecord = totalRecord;
     }
 
-    public Integer getPaymentStatus() {
+    public String getPaymentStatus() {
         return paymentStatus;
     }
 
-    public void setPaymentStatus(Integer paymentStatus) {
+    public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
 
@@ -163,11 +199,11 @@ public class Receipt {
         this.systemRemarks = systemRemarks;
     }
 
-    public Integer getOrderStatus() {
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(Integer orderStatus) {
+    public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
     }
 
@@ -219,18 +255,40 @@ public class Receipt {
         this.updatedOn = updatedOn;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Receipt receipt = (Receipt) o;
-        return Objects.equals(id, receipt.id) && Objects.equals(bankClearingDate, receipt.bankClearingDate) && Objects.equals(studentId, receipt.studentId) && Objects.equals(receiptNo, receipt.receiptNo) && Objects.equals(cashBank, receipt.cashBank) && Objects.equals(registrationFee, receipt.registrationFee) && Objects.equals(securityFee, receipt.securityFee) && Objects.equals(tutionFee, receipt.tutionFee) && Objects.equals(stationaryFee, receipt.stationaryFee) && Objects.equals(citrexSale, receipt.citrexSale) && Objects.equals(totalRecord, receipt.totalRecord) && Objects.equals(paymentStatus, receipt.paymentStatus) && Objects.equals(systemRemarks, receipt.systemRemarks) && Objects.equals(orderStatus, receipt.orderStatus) && Objects.equals(other, receipt.other) && Objects.equals(unknown, receipt.unknown) && Objects.equals(createdBy, receipt.createdBy) && Objects.equals(createdOn, receipt.createdOn) && Objects.equals(updatedBy, receipt.updatedBy) && Objects.equals(updatedOn, receipt.updatedOn);
+    public Integer getInventory() {
+        return inventory;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, bankClearingDate, studentId, receiptNo, cashBank, registrationFee, securityFee, tutionFee, stationaryFee, citrexSale, totalRecord, paymentStatus, systemRemarks, orderStatus, other, unknown, createdBy, createdOn, updatedBy, updatedOn);
+    public void setInventory(Integer inventory) {
+        this.inventory = inventory;
     }
+    @Override
+    public String toString() {
+        return "Receipt{" +
+                "id=" + id +
+                ", bankClearingDate=" + bankClearingDate +
+                ", studentId=" + studentId +
+                ", receiptNo=" + receiptNo +
+                ", cashBank=" + cashBank +
+                ", registrationFee=" + registrationFee +
+                ", securityFee=" + securityFee +
+                ", tutionFee=" + tutionFee +
+                ", stationaryFee=" + stationaryFee +
+                ", citrexSale=" + citrexSale +
+                ", inventory=" + inventory +
+                ", totalRecord=" + totalRecord +
+                ", paymentStatus=" + paymentStatus +
+                ", systemRemarks='" + systemRemarks + '\'' +
+                ", orderStatus=" + orderStatus +
+                ", other='" + other + '\'' +
+                ", unknown='" + unknown + '\'' +
+                ", createdBy='" + createdBy + '\'' +
+                ", createdOn=" + createdOn +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", updatedOn=" + updatedOn +
+                '}';
+    }
+
     @PrePersist
     private void beforeInsert(){
         this.setCreatedBy("admin");

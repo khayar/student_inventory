@@ -32,7 +32,7 @@ public class StudentController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
     @PostMapping
-    public ResponseEntity<Student> createReceipt(@RequestBody Student student) {
+    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
         Student createStudent = studentService.createStudent(student);
         return ResponseEntity.status(HttpStatus.CREATED).body(createStudent);
     }
@@ -47,6 +47,16 @@ public class StudentController {
             student.setCreatedOn(existingStudent.get().getCreatedOn());
             Student updatedStudent= studentService.updateStudent(id, student);
             return ResponseEntity.ok().body(updatedStudent);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable("id") Long id) {
+        Optional<Student> existingStudent = studentService.getStudentById(id);
+        if (existingStudent.isPresent()) {
+            studentService.deleteStudent(id);
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }

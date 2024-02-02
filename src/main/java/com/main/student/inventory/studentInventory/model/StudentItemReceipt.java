@@ -1,9 +1,8 @@
 package com.main.student.inventory.studentInventory.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
+import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -11,21 +10,41 @@ import java.util.Objects;
 public class StudentItemReceipt {
 
     @Id
+    @Column(name = "receipt_id")
     private Integer receiptId;
     @Id
+    @Column(name = "student_id")
     private Integer studentId;
+    @Id
+    @Column(name = "item_id")
     private Integer itemId;
+    @Column(name = "order_qty")
     private Integer orderQty;
+    @Column(name = "iss_qty")
     private Integer issQty;
+    @Column(name = "created_by")
+    private String createdBy;
+    @Column(name = "created_on")
+    private LocalDateTime createdOn;
+    @Column(name = "updated_by")
+    private String updatedBy;
+    @Column(name = "updated_on")
+    private LocalDateTime updatedOn;
+
 
     public StudentItemReceipt() {
     }
-    public StudentItemReceipt(Integer receiptId, Integer studentId, Integer itemId, Integer orderQty, Integer issQty) {
+
+    public StudentItemReceipt(Integer receiptId, Integer studentId, Integer itemId, Integer orderQty, Integer issQty, String createdBy, LocalDateTime createdOn, String updatedBy, LocalDateTime updatedOn) {
         this.receiptId = receiptId;
         this.studentId = studentId;
         this.itemId = itemId;
         this.orderQty = orderQty;
         this.issQty = issQty;
+        this.createdBy = createdBy;
+        this.createdOn = createdOn;
+        this.updatedBy = updatedBy;
+        this.updatedOn = updatedOn;
     }
 
     public Integer getReceiptId() {
@@ -68,16 +87,48 @@ public class StudentItemReceipt {
         this.issQty = issQty;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        StudentItemReceipt that = (StudentItemReceipt) o;
-        return Objects.equals(receiptId, that.receiptId) && Objects.equals(studentId, that.studentId) && Objects.equals(itemId, that.itemId) && Objects.equals(orderQty, that.orderQty) && Objects.equals(issQty, that.issQty);
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(receiptId, studentId, itemId, orderQty, issQty);
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    @PrePersist
+    private void beforeInsert(){
+        this.setCreatedBy("admin");
+        this.setCreatedOn(LocalDateTime.now());
+        this.setUpdatedBy("admin");
+        this.setUpdatedOn(LocalDateTime.now());
+    }
+    @PreUpdate
+    private void beforeUpdate(){
+        this.setUpdatedBy("admin");
+        this.setUpdatedOn(LocalDateTime.now());
     }
 }

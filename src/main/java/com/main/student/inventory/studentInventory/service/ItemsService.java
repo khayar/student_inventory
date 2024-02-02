@@ -21,11 +21,14 @@ public class ItemsService {
     public Optional<Items> getItemsById(Long id) {
         return itemsRepository.findById(id);
     }
-    public Items createItems(Items receipt) {
-        return itemsRepository.save(receipt);
+    public Items createItems(Items items) {
+        return itemsRepository.save(items);
     }
     public Items updateItems(Long id, Items items) {
         items.setId(id);
         return itemsRepository.save(items);
+    }
+    public void deleteItem(Long id) {
+        itemsRepository.deleteById(id);
     }
 }
