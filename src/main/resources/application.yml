@@ -1,0 +1,18 @@
+server:
+  port: '8080'
+spring:
+  application:
+    name: STUDENT-SERVICE
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: tbs
+    url: jdbc:postgresql://localhost:5432/student_inventory
+    password: tbs@123abc
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+logging:
+  level:
+    org:
+      hibernate: 'DEBUG '
+      springframework:
+        web: DEBUG

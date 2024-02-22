@@ -1,0 +1,15 @@
+version: '1'
+services:
+  compose-api:
+    container_name: studentInventory-Backend
+    image: "student-inventory-backend"
+    build: api/
+    ports:
+      - "8080:8080"
+  compose-db:
+    image: "student-inventory-backend"
+    build: db/
+    ports:
+      - "5432:5432"
+    depends_on:
+      - compose-api.00.6
