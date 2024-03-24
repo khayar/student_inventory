@@ -100,6 +100,19 @@ public class Items {
         return Objects.hash(id, itemCode, itemDesc, createdBy, createdOn, updatedBy, updatedOn);
     }
 
+    @Override
+    public String toString() {
+        return "Items{" +
+                "id=" + id +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemDesc='" + itemDesc + '\'' +
+                ", createdBy='" + createdBy + '\'' +
+                ", createdOn=" + createdOn +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", updatedOn=" + updatedOn +
+                '}';
+    }
+
     @PrePersist
     private void beforeInsert(){
         this.setCreatedBy("admin");

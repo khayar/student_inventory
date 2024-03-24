@@ -2,7 +2,9 @@ server:
   port: '8080'
 spring:
   application:
-    name: STUDENT-SERVICE
+    name: student
+#  profiles:
+#    active: dev
   datasource:
     driver-class-name: org.postgresql.Driver
     username: tbs
@@ -10,9 +12,50 @@ spring:
     password: tbs@123abc
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  config:
+    import: 'consul:'
+  cloud:
+    consul:
+      config:
+        enabled: true
+        name: student
+        host: localhost
+        port: 8500
+        data-key: application.yml
+        format: yaml
+        default-context: defaults
+
+#logging:
+#  level:
+#    org:
+#      hibernate: 'DEBUG '
+#      springframework:
+#        web: DEBUG
+
 logging:
   level:
     org:
-      hibernate: 'DEBUG '
       springframework:
-        web: DEBUG
+        amqp:
+          rabbit:
+            core:
+              RabbitAdmin: DEBUG
+            connection:
+              CachingConnectionFactory: WARN
+
+  file:
+    name: myapp.log
+    #path: /var/log
+#        boot:
+#          context:
+#            config: TRACE
+
+
+amqp:
+  exchange:
+    items: myqueue
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0

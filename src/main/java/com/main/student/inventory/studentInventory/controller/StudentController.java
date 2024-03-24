@@ -4,6 +4,8 @@ import com.main.student.inventory.studentInventory.model.Receipt;
 import com.main.student.inventory.studentInventory.model.Student;
 import com.main.student.inventory.studentInventory.service.ReceiptService;
 import com.main.student.inventory.studentInventory.service.StudentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ import java.util.Optional;
 @RequestMapping("/student")
 public class StudentController {
 
+    Logger logger = LoggerFactory.getLogger(StudentController.class);
+
     private final StudentService studentService;
 
     public StudentController(StudentService studentService) {
@@ -22,17 +26,20 @@ public class StudentController {
     }
     @GetMapping
     public List<Student> getAllStudent() {
+        logger.info("getAllStudent request has been called !");
         return studentService.getAllStudent();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable("id") Long id) {
+        logger.info("getStudentById request has been called with id {} " , id);
         Optional<Student> student = studentService.getStudentById(id);
         return student.map(value -> ResponseEntity.ok().body(value))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
     @PostMapping
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
+        logger.info("new student registration {} ", student);
         Student createStudent = studentService.createStudent(student);
         return ResponseEntity.status(HttpStatus.CREATED).body(createStudent);
     }

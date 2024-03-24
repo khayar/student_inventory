@@ -7,9 +7,19 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/../loginwithJWT/pom.xml" />
         <option value="$PROJECT_DIR$/../../Frontend Projects/Secure-User-Platform-with-SpringBoot3-Vue-JWT/backend/pom.xml" />
+        <option value="$PROJECT_DIR$/../gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/../loginservice/pom.xml" />
+        <option value="$USER_HOME$/Downloads/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/../../../logs/pom.xml" />
+        <option value="$PROJECT_DIR$/../logs/pom.xml" />
       </list>
     </option>
-    <option name="workspaceImportForciblyTurnedOn" value="true" />
+    <option name="ignoredFiles">
+      <set>
+        <option value="$USER_HOME$/Downloads/demo/pom.xml" />
+        <option value="$PROJECT_DIR$/../../../logs/pom.xml" />
+      </set>
+    </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK" />
 </project>
